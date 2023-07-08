@@ -48,6 +48,114 @@
 					"response": []
 				},
 				{
+					"name": "Surat By SuratId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2023-07-07T16:47:34.147Z\",\n    \"eventManager\": \"Aldo J P\",\n    \"place\": \"Padang\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat/64a905ecdc6ac1217c7fbdbe?jenis=acara",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat",
+								"64a905ecdc6ac1217c7fbdbe"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "acara"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Surat",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Jalan Parak Gadang Komp. Pondok Indah Blok D5\",\n    \"name\": \"Adlo Junaidi P\",\n    \"noHp\": \"6281378449352\",\n    \"renovAddress\": \"Jl Ceger Raya, Bintaro Tangerang Selatan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat/64a905f8dc6ac1217c7fbdca?jenis=renovasi",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat",
+								"64a905f8dc6ac1217c7fbdca"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "renovasi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Surat",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Jl Parak Gadang Komp. Pondok Indah Blok D5\",\n    \"birthplace\": \"Padang, 25 Juni 1999\",\n    \"country\": \"Indonesia\",\n    \"gender\": \"male\",\n    \"job\": \"Bea dan Cukai\",\n    \"name\": \"Aldo Junaidi Pebry\",\n    \"religion\": \"Islam\",\n    \"status\": \"Tidak Menikah\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat/64a905ecdc6ac1217c7fbdbe?jenis=domisili",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat",
+								"64a905ecdc6ac1217c7fbdbe"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "domisili"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Acara",
 					"request": {
 						"method": "POST",
