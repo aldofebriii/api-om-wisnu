@@ -1,7 +1,7 @@
-import { Response, Send } from "express";
+import { Response } from "express";
 
 interface IErrorParams {
-    statusCode: 500 | 400 | 401 | 403;
+    statusCode: 500 | 400 | 401 | 403 | 404;
     message: string;
     res: Response
 }

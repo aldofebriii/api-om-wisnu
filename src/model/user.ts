@@ -1,11 +1,24 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser {
+    _id: string;
     username: string;
     password: string;
+    role: 'user' | 'admin',
+    bio: {
+        name: string;
+        address: string;
+        birthplace: string;
+        country: string;
+        religion: string;
+        nik: string;
+        job: string;
+        noHp: string;
+        status: string;
+    }
 }
 
-export const UserDocs = Document && {
+const UserSchema = new Schema<IUser>( {
     username: {
         type: String,
         required: true
@@ -36,10 +49,8 @@ export const UserDocs = Document && {
         nik: Number,
         job: String,
         noHp: String,
-        status: Number
+        status: String
     }
-};
-
-const UserSchema = new Schema(UserDocs);
+});
 
 export default mongoose.model('user', UserSchema);

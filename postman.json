@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "16ff55bc-b830-4f48-95ec-ee18e68e8f27",
+		"name": "api-suket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16000396",
+		"_collection_link": "https://grey-escape-208525.postman.co/workspace/Team-Workspace~6ae37b6a-8b94-4a0a-8404-c977d1546467/collection/16000396-16ff55bc-b830-4f48-95ec-ee18e68e8f27?action=share&creator=16000396&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Surat",
+			"item": [
+				{
+					"name": "Surat By User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2023-07-07T16:47:34.147Z\",\n    \"eventManager\": \"Aldo J P\",\n    \"place\": \"Padang\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat?jenis=acara",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "acara"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Acara",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2023-07-07T16:47:34.147Z\",\n    \"eventManager\": \"Aldo J P\",\n    \"place\": \"Padang\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat?jenis=acara",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "acara"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domisili",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Jl Parak Gadang Komp. Pondok Indah Blok D5\",\n    \"birthplace\": \"Padang, 25 Juni 1999\",\n    \"country\": \"Indonesia\",\n    \"gender\": \"male\",\n    \"job\": \"Bea dan Cukai\",\n    \"name\": \"Aldo Junaidi Pebry\",\n    \"religion\": \"Islam\",\n    \"status\": \"Tidak Menikah\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat?jenis=domisili",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "domisili"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pengantar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Aldo Junaidi Pebry\",\n    \"address\": \"Jl Parak Gadang Komp. Pondok Indah Blok D5\",\n    \"birthplace\": \"Padang, 25 Juni 1999\",\n    \"country\": \"Indonesia\",\n    \"religion\": \"Islam\",\n    \"report\": \"Pengantar Resign\",\n    \"status\": \"Belum Menikah\",\n    \"nik\": 1371025506990006\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat?jenis=pengantar",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "pengantar"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Kelahiran",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Jl Parak Gadang Komp. Pondok Indah Blok D5\",\n    \"birthplace\": \"Padang, 25 Juni 1999\",\n    \"childOrder\": 1,\n    \"fatherName\": \"Irwan Febri\",\n    \"motherName\": \"Karmaini\",\n    \"gender\": \"male\",\n    \"job\": \"Bea dan Cukai\",\n    \"name\": \"Aldo Junaidi Pebry\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat?jenis=kelahiran",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "kelahiran"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Renovasi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Jalan Parak Gadang Komp. Pondok Indah Blok D5\",\n    \"name\": \"Aldo Junaidi Pebry\",\n    \"noHp\": \"6281378449352\",\n    \"renovAddress\": \"Jl Ceger Raya, Bintaro Tangerang Selatan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/surat?jenis=renovasi",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"surat"
+							],
+							"query": [
+								{
+									"key": "jenis",
+									"value": "renovasi"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create New User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"aldofebriii\",\n    \"password\": \"1233456\",\n    \"bio\": {\n        \"name\": \"Aldo Junaidi Pebry\",\n        \"address\": \"Jl Parak Gadang Komp. Pondok Indah D5\",\n        \"birthplace\": \"Padang, 25 Juni 1999\",\n        \"country\": \"Indonesia\",\n        \"religion\": \"Islam\",\n        \"nik\": 137102205990006,\n        \"job\": \"PNS\",\n        \"noHp\": \"081378449352\",\n        \"status\": \"Belum Menikah\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:3000/user",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"aldofebriii\",\n    \"password\": \"1233456\",\n    \"bio\": {\n        \"name\": \"Aldo Junaidi Pebry\",\n        \"address\": \"Jl Parak Gadang Komp. Pondok Indah D5\",\n        \"birthplace\": \"Padang, 25 Juni 1999\",\n        \"country\": \"Indonesia\",\n        \"religion\": \"Islam\",\n        \"nik\": 137102205990006,\n        \"job\": \"PNS\",\n        \"noHp\": \"081378449352\",\n        \"status\": \"Belum Menikah\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:3000/user",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logging In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"aldofebriii\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:3000/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
