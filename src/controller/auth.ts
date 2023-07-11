@@ -37,7 +37,7 @@ export const loggingIn: RequestHandler = async (req, res, next) => {
         res: res
     });
 
-    const at = jwt.sign({id: foundedUser._id}, process.env.SECRET_HASH as string);
+    const at = jwt.sign({id: foundedUser._id, role: foundedUser.role, name: foundedUser.bio.name}, process.env.SECRET_HASH as string);
     
 
     res.setHeader('Set-Cookie', `jwt_at=${at};HttpOnly;SameSite=None;Path=/;Secure`);
