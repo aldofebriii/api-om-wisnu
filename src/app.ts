@@ -21,7 +21,12 @@ const server = https.createServer({
     cert: cert
 }, app);
 
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: ['https://localhost:3000'],
+    allowedHeaders: ['Content-Type', 'Set-Cookie', 'Authorization', 'Accept'],
+    methods: ['POST', 'GET', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
+}));
 app.use(helmet());
 app.use(express.json());
 //Surat
