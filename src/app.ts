@@ -21,7 +21,20 @@ const server = https.createServer({
     cert: cert
 }, app);
 
-app.use(cors());
+const whiteListOrigin = ['http://localhost:3000', 'https://localhost:3000', 'https://127.0.0.1:5500', 'http://127.0.0.1:5500']
+app.use(cors({
+    origin: (origin, callback) => {
+        if(whiteListOrigin.indexOf(origin as string) >  -1 ) {
+            callback(null, true)
+        } else {
+            callback(new Error("Not Allowed By Cors"))
+        };
+    },
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Set-Cookie', 'Authorization', 'Accept'],
+    methods: ['POST', 'GET', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
+}));
+
 app.use(helmet());
 app.use(express.json());
 //Surat
