@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import ErrorHandling from "../util/errorHandling";
 import User from "../model/user";
+import Admin from '../model/admin';
 import { createHmac } from "crypto";
 import jwt from "jsonwebtoken";
 
@@ -9,11 +10,36 @@ interface ILoginInput {
   password: string;
 }
 export const loggingIn: RequestHandler = async (req, res, next) => {
+<<<<<<< HEAD
   if (!req.body)
     return ErrorHandling({
       statusCode: 400,
       message: "Missing Request Body",
       res: res,
+=======
+    if(!req.body) return ErrorHandling({
+            statusCode: 400,
+            message: "Missing Request Body",
+            res: res
+        });
+
+    const userInput = req.body as ILoginInput;
+    if(!userInput.username || !userInput.password) return ErrorHandling({
+            statusCode: 400,
+            message: "Missing Required Field",
+            res: res
+        });
+    let foundedUser;
+    if(req.path === '/admin') {
+        foundedUser = await Admin.findOne({username: userInput.username});
+    } else {
+        foundedUser = await User.findOne({username: userInput.username});
+    };
+    if(!foundedUser) return ErrorHandling({
+        statusCode: 404,
+        message: "Username not found",
+        res: res
+>>>>>>> 8e5d32a404d7d235119ce3c72ac7b116f0e6ea42
     });
 
   const userInput = req.body as ILoginInput;

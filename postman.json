@@ -135,7 +135,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:3000/surat/64a905ecdc6ac1217c7fbdbe?jenis=domisili",
+							"raw": "https://localhost:3000/surat/64a9142c30484d4cb3189c97?jenis=pengantar",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -143,12 +143,12 @@
 							"port": "3000",
 							"path": [
 								"surat",
-								"64a905ecdc6ac1217c7fbdbe"
+								"64a9142c30484d4cb3189c97"
 							],
 							"query": [
 								{
 									"key": "jenis",
-									"value": "domisili"
+									"value": "pengantar"
 								}
 							]
 						}
@@ -328,32 +328,130 @@
 			]
 		},
 		{
-			"name": "Create New User",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"aldofebriii\",\n    \"password\": \"1233456\",\n    \"bio\": {\n        \"name\": \"Aldo Junaidi Pebry\",\n        \"address\": \"Jl Parak Gadang Komp. Pondok Indah D5\",\n        \"birthplace\": \"Padang, 25 Juni 1999\",\n        \"country\": \"Indonesia\",\n        \"religion\": \"Islam\",\n        \"nik\": 137102205990006,\n        \"job\": \"PNS\",\n        \"noHp\": \"081378449352\",\n        \"status\": \"Belum Menikah\"\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Create New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"wisnucakra\",\n    \"password\": \"123456\",\n    \"bio\": {\n        \"name\": \"Aldo Junaidi Pebry\",\n        \"address\": \"Jl Parak Gadang Komp. Pondok Indah D5\",\n        \"birthplace\": \"Padang, 25 Juni 1999\",\n        \"country\": \"Indonesia\",\n        \"religion\": \"Islam\",\n        \"nik\": 137102205990006,\n        \"job\": \"PNS\",\n        \"noHp\": \"081378449352\",\n        \"status\": \"Belum Menikah\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/admin/user",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"user"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://localhost:3000/user",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"user"
-					]
+				{
+					"name": "GET ALL USER",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"wisnucakra\",\n    \"password\": \"123456\",\n    \"bio\": {\n        \"name\": \"Aldo Junaidi Pebry\",\n        \"address\": \"Jl Parak Gadang Komp. Pondok Indah D5\",\n        \"birthplace\": \"Padang, 25 Juni 1999\",\n        \"country\": \"Indonesia\",\n        \"religion\": \"Islam\",\n        \"nik\": 137102205990006,\n        \"job\": \"PNS\",\n        \"noHp\": \"081378449352\",\n        \"status\": \"Belum Menikah\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/admin/user",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL SURAT",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"wisnucakra\",\n    \"password\": \"123456\",\n    \"bio\": {\n        \"name\": \"Aldo Junaidi Pebry\",\n        \"address\": \"Jl Parak Gadang Komp. Pondok Indah D5\",\n        \"birthplace\": \"Padang, 25 Juni 1999\",\n        \"country\": \"Indonesia\",\n        \"religion\": \"Islam\",\n        \"nik\": 137102205990006,\n        \"job\": \"PNS\",\n        \"noHp\": \"081378449352\",\n        \"status\": \"Belum Menikah\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/admin/surat",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"surat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"adminsuket\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:3000/admin",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
 			"name": "Get User",
@@ -393,7 +491,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"aldofebriii\",\n    \"password\": \"123456\"\n}",
+					"raw": "{\n    \"username\": \"aldofebriii\",\n    \"password\": \"1233456\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
