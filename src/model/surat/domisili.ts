@@ -5,7 +5,7 @@ export interface IDomisili {
     address: string;
     birthplace: string;
     country: string;
-    gender: 'male' | 'female';
+    gender: 'Pria' | 'Wanita';
     job: string;
     name: string;
     religion: string;
