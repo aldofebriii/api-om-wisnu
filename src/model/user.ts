@@ -4,7 +4,7 @@ export interface IUser {
     _id: string;
     username: string;
     password: string;
-    role: 'user' | 'admin',
+    role: 'user',
     bio: {
         name: string;
         address: string;

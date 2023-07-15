@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import ErrorHandling from "../util/errorHandling";
 import User from "../model/user";
+import Admin from '../model/admin';
 import { createHmac } from "crypto";
 import jwt from 'jsonwebtoken';
 
@@ -21,8 +22,12 @@ export const loggingIn: RequestHandler = async (req, res, next) => {
             message: "Missing Required Field",
             res: res
         });
-
-    const foundedUser = await User.findOne({username: userInput.username});
+    let foundedUser;
+    if(req.path === '/admin') {
+        foundedUser = await Admin.findOne({username: userInput.username});
+    } else {
+        foundedUser = await User.findOne({username: userInput.username});
+    };
     if(!foundedUser) return ErrorHandling({
         statusCode: 404,
         message: "Username not found",
