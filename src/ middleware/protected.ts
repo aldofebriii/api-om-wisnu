@@ -52,32 +52,51 @@ export const verifiedUser: RequestHandler = async (req, res, next) => {
 };
 
 export const verifiedAdmin: RequestHandler = async (req, res, next) => {
-    const cookies = req.headers.cookie;
-    if(!cookies) return ErrorHandling({
-        statusCode: 400,
-        message: "No Cookies Provided",
-        res: res
-    });
-    const at = cookies.split('=')[1];
-    if(!at) return ErrorHandling({
-        statusCode: 400,
-        message: "No Access Token",
-        res: res
-    });
+  const authorizationHeader = req.headers.authorization;
 
-    const decoded = jwt.verify(at, process.env.SECRET_HASH as string) as {id: string};
-    if(!decoded.id) return ErrorHandling({
+  if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+    return ErrorHandling({
+      statusCode: 400,
+      message: "No Bearer Token Provided",
+      res: res,
+    });
+  }
+  const token = authorizationHeader.split(' ')[1];
+  if (!token) {
+    return ErrorHandling({
+      statusCode: 400,
+      message: "No Bearer Token Provided",
+      res: res,
+    });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_HASH as string) as {
+      id: string;
+    };
+
+    if (!decoded.id) {
+      return ErrorHandling({
         statusCode: 403,
         message: "Invalid Token",
-        res: res
-    });
-
+        res: res,
+      });
+    }
     const validAdmin = await Admin.findById(decoded.id);
-    if(!validAdmin || validAdmin.role !== 'admin') return ErrorHandling({
+    if (!validAdmin || validAdmin.role !== "admin") {
+      return ErrorHandling({
         statusCode: 403,
         message: "Invalid Token",
-        res: res
-    });
-    req.admin = validAdmin
+        res: res,
+      });
+    }
+    req.admin = validAdmin;
     next();
+  } catch (err) {
+    return ErrorHandling({
+      statusCode: 403,
+      message: "Token Verification Failed",
+      res: res,
+    });
+  }
 };
+
