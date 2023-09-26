@@ -13,7 +13,7 @@ import loggingIn from "./controller/auth";
 import fs from "fs";
 import path from "path";
 import https from "https";
-import { verifiedUser, verifiedAdmin } from "./ middleware/protected";
+import { verifiedUser, verifiedAdmin } from "./middleware/protected";
 import cors from "cors";
 import helmet from "helmet";
 
