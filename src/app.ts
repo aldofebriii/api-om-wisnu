@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response} from "express";
 import mongoose from "mongoose";
 import dotaenv from "dotenv";
 import {
@@ -51,11 +51,16 @@ app.post("/user", createNewUser);
 app.get("/user", verifiedUser, getUser);
 //Auth
 app.post("/login", loggingIn);
+
 //Util
 app.get("/", (_, res, __) => {
   return res.status(200).json({
     msg: "Server is Alived",
   });
+});
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    return res.status(err.statusCode || 500).json({message: err.message})
 });
 
 mongoose

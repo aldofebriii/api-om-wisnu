@@ -13,57 +13,61 @@ import { generatorNewSurat, queryJenisSurat } from "../helper/helper";
 import { getHari } from "../util/hari";
 
 export const getUser: RequestHandler = async (req, res, next) => {
-    const id = req.user?._id;
-    if(!id) return ErrorHandling({
-        statusCode: 400,
-        message: "Missing required params",
-        res: res
-    });
-
-    const foundedUser = await User.findById(id);
-    if(!foundedUser) return ErrorHandling({
-        statusCode: 404,
-        message: "User not found",
-        res: res
-    });
-
-    return res.status(200).json(foundedUser)
+    try {
+        const id = req.user?._id;
+        if(!id) throw ErrorHandling({
+            statusCode: 400,
+            message: "Missing required params"
+        });
+    
+        const foundedUser = await User.findById(id);
+        if(!foundedUser) throw ErrorHandling({
+            statusCode: 404,
+            message: "User not found"
+        });
+    
+        return res.status(200).json(foundedUser)
+    } catch(err){
+        next(err);
+    }; 
 };
 
 export const createNewUser: RequestHandler = async (req, res, next) => {
-    if(!req.body) {
-        return ErrorHandling({
-            statusCode: 400,
-            message: "Request Body is required",
-            res: res
-        })
-    };
-
-    const userBody = req.body as IUser;
-    if(!validateNewUser(userBody)) {
-        return ErrorHandling({
-            statusCode: 400,
-            message: "User is invalid",
-            res: res
-        })
-    };
+    try {
+        if(!req.body) {
+            throw ErrorHandling({
+                statusCode: 400,
+                message: "Request Body is required"
+            })
+        };
     
-
-    const hashedPassword = createHmac('sha256', process.env.SECRET_HASH as string).update(userBody.password).digest('hex');
-
-    const newUser = new User({...userBody, password: hashedPassword, role: 'user'});
-
-    await newUser.save();
-    return res.status(201).json(newUser);
+        const userBody = req.body as IUser;
+        if(!validateNewUser(userBody)) {
+            throw ErrorHandling({
+                statusCode: 400,
+                message: "User is invalid"
+            })
+        };
+        
+    
+        const hashedPassword = createHmac('sha256', process.env.SECRET_HASH as string).update(userBody.password).digest('hex');
+    
+        const newUser = new User({...userBody, password: hashedPassword, role: 'user'});
+    
+        await newUser.save();
+        return res.status(201).json(newUser);
+    } catch(err){
+        next(err);
+    };
 };
 
 export const getSurat: RequestHandler = async (req, res, next) => {
-    const jenis = queryJenisSurat(req, res);
+    try {
+        const jenis = queryJenisSurat(req, res);
     if(!jenis) {
-        return ErrorHandling({
+        throw ErrorHandling({
             statusCode: 400,
-            message: 'Invalid Query',
-            res: res
+            message: 'Invalid Query'
         })  
     };
     const userId = req.user!._id;
@@ -90,129 +94,131 @@ export const getSurat: RequestHandler = async (req, res, next) => {
     };
 
     if(!foundedSurat) {
-        return ErrorHandling({
+        throw ErrorHandling({
             message: 'Surat not found',
-            statusCode: 404,
-            res: res
+            statusCode: 404
         });
     };
 
     return res.status(200).json(foundedSurat);
+    } catch(err){
+        next(err);
+    };
 };
 
 export const deleteSurat: RequestHandler = async (req, res, next) => {
-    const jenis = queryJenisSurat(req, res);
-    if(!jenis) {
-        return ErrorHandling({
-            statusCode: 400,
-            message: 'Invalid Query',
-            res: res
-        })  
+    try {
+        const jenis = queryJenisSurat(req, res);
+        if(!jenis) {
+            throw ErrorHandling({
+                statusCode: 400,
+                message: 'Invalid Query'
+            })  
+        };
+        const userId = req.user!._id;
+        const suratId = req.params.suratId;
+        let deletedSurat;
+        if(jenis === 'kelahiran') {
+            deletedSurat = await Kelahiran.deleteOne({_id: suratId, userId: userId});
+        };
+    
+        if(jenis === 'domisili') {
+            deletedSurat = await Domisili.deleteOne({_id: suratId, userId: userId});
+        };
+    
+        if(jenis === 'pengantar') {
+            deletedSurat = await Pengantar.deleteOne({_id: suratId, userId: userId});
+        };
+    
+        if(jenis === 'renovasi') {
+            deletedSurat = await Renovasi.deleteOne({_id: suratId, userId: userId});
+        };
+    
+        if(jenis === 'acara') {
+            deletedSurat = await Acara.deleteOne({_id: suratId, userId: userId});
+        };
+    
+        if(deletedSurat?.deletedCount === 0) {
+            throw ErrorHandling({
+                message: "Delete failed",
+                statusCode: 404
+            });
+        };
+        console.log(deletedSurat);
+        return res.status(200).json(deletedSurat);
+    } catch(err){
+        next(err);
     };
-    const userId = req.user!._id;
-    const suratId = req.params.suratId;
-    let deletedSurat;
-    if(jenis === 'kelahiran') {
-        deletedSurat = await Kelahiran.deleteOne({_id: suratId, userId: userId});
-    };
-
-    if(jenis === 'domisili') {
-        deletedSurat = await Domisili.deleteOne({_id: suratId, userId: userId});
-    };
-
-    if(jenis === 'pengantar') {
-        deletedSurat = await Pengantar.deleteOne({_id: suratId, userId: userId});
-    };
-
-    if(jenis === 'renovasi') {
-        deletedSurat = await Renovasi.deleteOne({_id: suratId, userId: userId});
-    };
-
-    if(jenis === 'acara') {
-        deletedSurat = await Acara.deleteOne({_id: suratId, userId: userId});
-    };
-
-    if(deletedSurat?.deletedCount === 0) {
-        return ErrorHandling({
-            message: "Delete failed",
-            statusCode: 404,
-            res: res
-        });
-    };
-    console.log(deletedSurat);
-    return res.status(200).json(deletedSurat);
 };
 
 export const generateSurat: RequestHandler = async (req, res, next) => {
-    const jenis = queryJenisSurat(req, res);
-    if(!jenis) {
-        return ErrorHandling({
-            statusCode: 400,
-            message: 'Invalid Query',
-            res: res
-        })  
-    };
-    const suratId = req.params.suratId;
-    let surat;
-    if(jenis === 'kelahiran') {
-        if(!validateSKelahiran(req)){
-            return ErrorHandling({
+    try {
+        const jenis = queryJenisSurat(req, res);
+        if(!jenis) {
+            throw ErrorHandling({
                 statusCode: 400,
-                message: 'Missing required fields',
-                res: res
-            })
+                message: 'Invalid Query'
+            })  
         };
-        surat = await generatorNewSurat<IKelahiran>(req, Kelahiran, suratId);
-    };
-
-    if(jenis === 'domisili') {
-        if(!validateSDomisili(req)){
-            return ErrorHandling({
-                statusCode: 400,
-                message: 'Missing required body field in ' + jenis,
-                res: res
-            })
+        const suratId = req.params.suratId;
+        let surat;
+        if(jenis === 'kelahiran') {
+            if(!validateSKelahiran(req)){
+                throw ErrorHandling({
+                    statusCode: 400,
+                    message: 'Missing required fields',
+                })
+            };
+            surat = await generatorNewSurat<IKelahiran>(req, Kelahiran, suratId);
         };
-        surat = await generatorNewSurat<IDomisili>(req, Domisili, suratId);
-    };
-
-    if(jenis === 'pengantar') {
-        if(!validateSPengantar(req)){
-            return ErrorHandling({
-                statusCode: 400,
-                message: 'Missing required fields',
-                res: res
-            })
+    
+        if(jenis === 'domisili') {
+            if(!validateSDomisili(req)){
+                throw ErrorHandling({
+                    statusCode: 400,
+                    message: 'Missing required body field in ' + jenis,
+                })
+            };
+            surat = await generatorNewSurat<IDomisili>(req, Domisili, suratId);
         };
-        surat = await generatorNewSurat<IPengantar>(req, Pengantar, suratId);
-    };
-
-    if(jenis === 'renovasi') {
-        if(!validateSRenovasi(req)){
-            return ErrorHandling({
-                statusCode: 400,
-                message: 'Missing required fields',
-                res: res
-            })
+    
+        if(jenis === 'pengantar') {
+            if(!validateSPengantar(req)){
+                throw ErrorHandling({
+                    statusCode: 400,
+                    message: 'Missing required fields',
+                })
+            };
+            surat = await generatorNewSurat<IPengantar>(req, Pengantar, suratId);
         };
-        surat = await generatorNewSurat<IRenovasi>(req, Renovasi, suratId);
-    };
-
-    if(jenis === 'acara') {
-        if(!validateSAcara(req)){
-            return ErrorHandling({
-                statusCode: 400,
-                message: 'Missing required fields',
-                res: res
-            })
+    
+        if(jenis === 'renovasi') {
+            if(!validateSRenovasi(req)){
+                throw ErrorHandling({
+                    statusCode: 400,
+                    message: 'Missing required fields',
+                })
+            };
+            surat = await generatorNewSurat<IRenovasi>(req, Renovasi, suratId);
         };
-        //tindak lanjut
-        req.body as IAcara;
-        const { date } = req.body;
-        req.body.day = getHari(new Date(date).getDay());
-        req.body.time = `${new Date(date).getHours()} : ${new Date(date).getMinutes()}  - Selesai `
-        surat = await generatorNewSurat<IAcara>(req, Acara, suratId);
+    
+        if(jenis === 'acara') {
+            if(!validateSAcara(req)){
+                throw ErrorHandling({
+                    statusCode: 400,
+                    message: 'Missing required fields',
+                })
+            };
+            //tindak lanjut
+            req.body as IAcara;
+            const { date } = req.body;
+            req.body.day = getHari(new Date(date).getDay());
+            req.body.time = `${new Date(date).getHours()} : ${new Date(date).getMinutes()}  - Selesai `
+            surat = await generatorNewSurat<IAcara>(req, Acara, suratId);
+        };
+    
+        return res.status(200).json(surat);
+    } catch(err){
+        next(err);
     };
-
-    return res.status(200).json(surat);
 };
