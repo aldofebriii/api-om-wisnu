@@ -1,11 +1,11 @@
 import { RequestHandler } from "express";
 import ErrorHandling from "../util/errorHandling";
 import User from "../model/user";
-import Acara from "../model/surat/acara";
-import Domisili from "../model/surat/domisili";
-import Kelahiran from "../model/surat/kelahiran";
-import Pengantar from "../model/surat/pengantar";
-import Renovasi from "../model/surat/renovasi";
+import Acara, { IAcara } from "../model/surat/acara";
+import Domisili, { IDomisili } from "../model/surat/domisili";
+import Kelahiran, { IKelahiran } from "../model/surat/kelahiran";
+import Pengantar, { IPengantar } from "../model/surat/pengantar";
+import Renovasi, { IRenovasi } from "../model/surat/renovasi";
 
 export const adminGetAllUser: RequestHandler = async (req, res, next) => {
     try {
@@ -24,7 +24,7 @@ export const adminGetAllUser: RequestHandler = async (req, res, next) => {
     };
 };
 
-export const adminGetAllSurat: RequestHandler = async (req, res, next) => {
+export const adminGetAllSurat: RequestHandler<{}, {}, {}, {}> = async (req, res, next) => {
     try {
         const reqAdmin = req.admin;
         if (!reqAdmin)
@@ -33,21 +33,21 @@ export const adminGetAllSurat: RequestHandler = async (req, res, next) => {
             message: "Invalid Cookie"
             });
 
-        const result = [];
+        const result: Record<'acara' | 'domisili' | 'kelahiran' | 'pengantar' | 'renovasi', IAcara[] | IDomisili[] | IKelahiran[] | IPengantar[] | IRenovasi[]> = {acara: [], domisili: [], kelahiran: [], pengantar: [], renovasi: []};
         const acaras = await Acara.find({});
-        result.push(...acaras);
+        result.acara = acaras;
 
         const domisili = await Domisili.find({});
-        result.push(...domisili);
+        result.domisili = domisili;
 
         const kelahiran = await Kelahiran.find({});
-        result.push(...kelahiran);
+        result.kelahiran = kelahiran;
 
         const pengantar = await Pengantar.find({});
-        result.push(...pengantar);
+        result.pengantar = pengantar;
 
         const renovasi = await Renovasi.find({});
-        result.push(...renovasi);
+        result.renovasi = renovasi;
 
         return res.status(200).json(result);
     } catch(err){
